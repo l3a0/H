@@ -52,7 +52,7 @@ public class UserSignUpServlet extends HttpServlet {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		datastore.put(user);
 
-		// redirect to user sign up confirmation
-		resp.sendRedirect("/userSignUp.jsp?username=" + username);
+		// redirect to registering parking lot 
+		resp.sendRedirect("/registerParkingLotServlet.jsp?username=" + username);
 	}
 }

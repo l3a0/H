@@ -21,7 +21,7 @@
 
   <body>
 
-	<p>Hello, please sign up!</p>
+	<p>Parking lot registration</p>
 
 	<%
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

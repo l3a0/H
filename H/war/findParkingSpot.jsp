@@ -93,7 +93,8 @@
 				                	    data-currency="USD" 
 				                	    data-shipping="0" 
 				                	    data-tax="0"
-				                	    data-callback="http://localhost:8080/paymentConfirmation.jsp" 
+				                	    data-callback="http://localhost:8080/paymentConfirmation?customerPhoneNumber=2068396960"
+				                	    data-return="http://localhost:8080/paymentConfirmation?customerPhoneNumber=2068396960"
 				                	    data-env="sandbox">
 			                		</script>
 		                		</td>

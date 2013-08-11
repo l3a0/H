@@ -39,7 +39,7 @@
 				DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     			Query query = new Query("User").addSort("createDate", Query.SortDirection.ASCENDING);
 	    		List<Entity> users = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-	    		if (users.isEmpty()) {
+	    		if (users == null || users.isEmpty()) {
 	        %>
 	        		<tr>
 	        			<td>

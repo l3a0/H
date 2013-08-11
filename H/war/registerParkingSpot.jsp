@@ -58,7 +58,7 @@
 	    		Query parkingSpotsQuery = new Query("ParkingSpot").setAncestor(parkingLot.getKey()).addSort("createDate", Query.SortDirection.ASCENDING);
 	    		List<Entity> parkingSpots = datastore.prepare(parkingSpotsQuery).asList(FetchOptions.Builder.withDefaults());
 
-	    		if (parkingSpots.isEmpty()) {
+	    		if (parkingSpots == null || parkingSpots.isEmpty()) {
 	        %>
 	        		<tr>
 	        			<td>

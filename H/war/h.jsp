@@ -48,16 +48,39 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-			function initialize() {
+			function initialize(myLatlng) {
 				var mapOptions = {
-				center: new google.maps.LatLng(47.600757, -122.331417),
-				zoom: 17,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			var map = new google.maps.Map(document.getElementById("map-canvas"),
-				mapOptions);
+					center: myLatlng,
+					zoom: 17,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+			
+				var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+				var marker = new google.maps.Marker({
+					position: myLatlng,
+					title:"Hello World!"
+				});
+				
+				// To add the marker to the map, call setMap();
+				marker.setMap(map);
 			}
-			google.maps.event.addDomListener(window, 'load', initialize);
+			
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(success, error);
+			} else {
+				error('geolocation not supported');
+			}
+			
+			function success(position) {
+				// variable to store the coordinates
+				var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				initialize(myLatlng);
+			}
+			
+			function error(msg) {
+				error('geolocation not supported');
+			}
 		</script>
 	</body>
 </html>

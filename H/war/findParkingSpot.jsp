@@ -17,6 +17,7 @@
 <html>
   <head>
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <link type="text/js" rel="javascript" href="/js/paypal-button.min.js" />
   </head>
 
   <body>
@@ -46,24 +47,56 @@
 			           	<td>Day</td>
 			            <td>Hour</td>
 			         	<td>Rate (per hour)</td>
+			         	<td>Parking lot name</td>
+			         	<td>Parking lot address</td>
+			         	<td>Parking lot longitude</td>
+			         	<td>Parking lot latitude</td>
+			         	<td>Purchase</td>
 			        </tr>
 	    	<%
 	        		for (Entity parkingSpot : parkingSpots) {
+	        			// get parking lot
+	        			Key parkingLotKey = parkingSpot.getParent();
+	        			Filter parkingLotFilter = new FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, parkingLotKey);
+	        			Query parkingLotQuery = new Query("ParkingLot").setFilter(parkingLotFilter);
+	        			Entity parkingLot = datastore.prepare(parkingLotQuery).asSingleEntity();
+
+	        			if (parkingLot != null) {
+	        				pageContext.setAttribute("parkingLotName", parkingLot.getProperty("name"));
+		        			pageContext.setAttribute("parkingLotAddress", parkingLot.getProperty("address"));
+		        			pageContext.setAttribute("parkingLotLongitude", parkingLot.getProperty("longitude"));
+		        			pageContext.setAttribute("parkingLotLatitude", parkingLot.getProperty("latitude"));
+	        			}
+	        			pageContext.setAttribute("maxSpots", parkingSpot.getProperty("maxSpots"));
+	            		pageContext.setAttribute("occupiedSpots", parkingSpot.getProperty("occupiedSpots"));
+	            		pageContext.setAttribute("day", parkingSpot.getProperty("day"));
+	            		pageContext.setAttribute("hour", parkingSpot.getProperty("hour"));
+	            		pageContext.setAttribute("rate", parkingSpot.getProperty("rate"));
 	       	%>
 	       				<tr>
-	       	<%
-		               		pageContext.setAttribute("maxSpots", parkingSpot.getProperty("maxSpots"));
-		            		pageContext.setAttribute("occupiedSpots", parkingSpot.getProperty("occupiedSpots"));
-		            		pageContext.setAttribute("day", parkingSpot.getProperty("day"));
-		            		pageContext.setAttribute("hour", parkingSpot.getProperty("hour"));
-		            		pageContext.setAttribute("rate", parkingSpot.getProperty("rate"));
-		    %>
 		                	<p>
 		                		<td><b>${fn:escapeXml(maxSpots)}</b></td>
 		                		<td>${fn:escapeXml(occupiedSpots)}</td>
 		                		<td>${fn:escapeXml(day)}</td>
 		                		<td>${fn:escapeXml(hour)}</td>
 		                		<td>${fn:escapeXml(rate)}</td>
+		                		<td>${fn:escapeXml(parkingLotName)}</td>
+		                		<td>${fn:escapeXml(parkingLotAddress)}</td>
+		                		<td>${fn:escapeXml(parkingLotLongitude)}</td>
+		                		<td>${fn:escapeXml(parkingLotLatitude)}</td>
+		                		<td>
+			                		<script src="js/paypal-button.min.js?merchant=jwkilin@gmail.com" 
+				                	    data-button="buynow" 
+				                	    data-name=${fn:escapeXml(parkingLotName)}
+				                	    data-quantity="1" 
+				                	    data-amount=${fn:escapeXml(rate)}
+				                	    data-currency="USD" 
+				                	    data-shipping="0" 
+				                	    data-tax="0"
+				                	    data-callback="http://localhost:8080/paymentConfirmation.jsp" 
+				                	    data-env="sandbox">
+			                		</script>
+		                		</td>
 		                	</p>
 		                </tr>
 	        <%

@@ -30,7 +30,7 @@
 				Query parkingSpotsQuery = new Query("ParkingSpot").setFilter(parkingSpotsFilter);
 	    		List<Entity> parkingSpots = datastore.prepare(parkingSpotsQuery).asList(FetchOptions.Builder.withDefaults());
 
-	    		if (parkingSpots.isEmpty()) {
+	    		if (parkingSpots == null || parkingSpots.isEmpty()) {
 	        %>
 	        		<tr>
 	        			<td>

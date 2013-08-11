@@ -23,6 +23,7 @@
 
     <form action="/userSignUp" method="post">
       	<div>Username: <input type="text" name="username" value=""/></div>
+      	<div>Password: <input type="password" name="password" value=""/></div>
      	<div>Email: <input type="email" name="email" value=""/></div>
      	<div>License plate: <input type="text" name="licensePlate" value=""/></div>
       	<div>Birthdate: <input type="text" name="birthdate" value=""/></div>

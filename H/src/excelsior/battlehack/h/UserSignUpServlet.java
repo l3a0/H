@@ -24,6 +24,7 @@ public class UserSignUpServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 		String username = req.getParameter("username");
+		String password = req.getParameter("password");
 		String email = req.getParameter("email");
 		String licensePlate = req.getParameter("licensePlate");
 		String address = req.getParameter("address");
@@ -40,6 +41,7 @@ public class UserSignUpServlet extends HttpServlet {
 		Key userKey = KeyFactory.createKey("User", username);
 		Entity user = new Entity("User", userKey);
 		user.setProperty("username", username);
+		user.setProperty("password", password);
 		user.setProperty("email", email);
 		user.setProperty("licensePlate", licensePlate);
 		user.setProperty("address", address);

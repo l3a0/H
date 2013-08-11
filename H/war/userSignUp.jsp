@@ -33,24 +33,58 @@
 
 	<div>
 		Current signed up users:
-		<%
-			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    		Query query = new Query("User").addSort("createDate", Query.SortDirection.ASCENDING);
-    		List<Entity> users = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
-    		if (users.isEmpty()) {
-        %>
-        		<p>(none)</p>
-        <%
-    		} else {
-        		for (Entity user : users) {
-            		pageContext.setAttribute("username", user.getProperty("username"));
-            		pageContext.setAttribute("createDate", user.getProperty("createDate"));
-        %>
-                	<p><b>${fn:escapeXml(username)}</b>: (${fn:escapeXml(createDate)})</p>
-        <%
-        		}
-    		}
-		%>
+		<table>
+			<%
+				DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    			Query query = new Query("User").addSort("createDate", Query.SortDirection.ASCENDING);
+	    		List<Entity> users = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
+	    		if (users.isEmpty()) {
+	        %>
+	        		<tr>
+	        			<td>
+	        				<p>(none)</p>
+	        			</td>
+	        		</tr>
+	        <%
+	    		} else {
+	    	%>
+	    			<tr>
+	    				<td>Username</td>
+	    				<td>Email</td>
+		               	<td>Create date</td>
+		                <td>License plate</td>
+		             	<td>Address</td>
+		                <td>Description</td>
+		                <td>Birth date</td>
+		            </tr>
+	    	<%
+	        		for (Entity user : users) {
+	       	%>
+	       				<tr>
+	       	<%
+		               		pageContext.setAttribute("username", user.getProperty("username"));
+		               		pageContext.setAttribute("email", user.getProperty("email"));
+		            		pageContext.setAttribute("createDate", user.getProperty("createDate"));
+		            		pageContext.setAttribute("licensePlate", user.getProperty("licensePlate"));
+		            		pageContext.setAttribute("address", user.getProperty("address"));
+		            		pageContext.setAttribute("description", user.getProperty("description"));
+		            		pageContext.setAttribute("birthdate", user.getProperty("birthdate"));
+		    %>
+		                	<p>
+		                		<td><b>${fn:escapeXml(username)}</b></td>
+		                		<td>${fn:escapeXml(email)}</td>
+		                		<td>${fn:escapeXml(createDate)}</td>
+		                		<td>${fn:escapeXml(licensePlate)}</td>
+		                		<td>${fn:escapeXml(address)}</td>
+		                		<td>${fn:escapeXml(description)}</td>
+		                		<td>${fn:escapeXml(birthdate)}</td>
+		                	</p>
+		                </tr>
+	        <%
+	        		}
+	    		}
+			%>
+		</table>
 	</div>
   </body>
 </html>

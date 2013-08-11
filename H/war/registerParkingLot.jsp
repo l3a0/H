@@ -45,6 +45,52 @@
 
 	<div>
 		Current list of parking lots for ${fn:escapeXml(username)}:
+		<table>
+			<%
+	    		Query parkingLotsQuery = new Query("ParkingLot").setAncestor(user.getKey()).addSort("createDate", Query.SortDirection.ASCENDING);
+	    		List<Entity> parkingLots = datastore.prepare(parkingLotsQuery).asList(FetchOptions.Builder.withDefaults());
+
+	    		if (parkingLots == null || parkingLots.isEmpty()) {
+	        %>
+	        		<tr>
+	        			<td>
+	        				<p>(none)</p>
+	        			</td>
+	        		</tr>
+	        <%
+	    		} else {
+	    	%>
+				    <tr>
+						<td>Name</td>
+						<td>Latitude</td>
+			           	<td>Longitude date</td>
+			            <td>Address</td>
+			         	<td>Description</td>
+			        </tr>
+	    	<%
+	        		for (Entity parkingLot : parkingLots) {
+	       	%>
+	       				<tr>
+	       	<%
+		               		pageContext.setAttribute("name", parkingLot.getProperty("name"));
+		            		pageContext.setAttribute("latitude", parkingLot.getProperty("latitude"));
+		            		pageContext.setAttribute("longitude", parkingLot.getProperty("longitude"));
+		            		pageContext.setAttribute("address", parkingLot.getProperty("address"));
+		            		pageContext.setAttribute("description", parkingLot.getProperty("description"));
+		    %>
+		                	<p>
+		                		<td><b>${fn:escapeXml(name)}</b></td>
+		                		<td>${fn:escapeXml(latitude)}</td>
+		                		<td>${fn:escapeXml(longitude)}</td>
+		                		<td>${fn:escapeXml(address)}</td>
+		                		<td>${fn:escapeXml(description)}</td>
+		                	</p>
+		                </tr>
+	        <%
+	        		}
+	    		}
+			%>
+		</table>
 	</div>
   </body>
 </html>

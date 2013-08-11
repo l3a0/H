@@ -17,6 +17,7 @@
 <html>
   <head>
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <link type="text/js" rel="javascript" href="/js/paypal-button.min.js" />
   </head>
 
   <body>
@@ -50,6 +51,7 @@
 			         	<td>Parking lot address</td>
 			         	<td>Parking lot longitude</td>
 			         	<td>Parking lot latitude</td>
+			         	<td>Purchase</td>
 			        </tr>
 	    	<%
 	        		for (Entity parkingSpot : parkingSpots) {
@@ -82,6 +84,19 @@
 		                		<td>${fn:escapeXml(parkingLotAddress)}</td>
 		                		<td>${fn:escapeXml(parkingLotLongitude)}</td>
 		                		<td>${fn:escapeXml(parkingLotLatitude)}</td>
+		                		<td>
+			                		<script src="js/paypal-button.min.js?merchant=jwkilin@gmail.com" 
+				                	    data-button="buynow" 
+				                	    data-name=${fn:escapeXml(parkingLotName)}
+				                	    data-quantity="1" 
+				                	    data-amount=${fn:escapeXml(rate)}
+				                	    data-currency="USD" 
+				                	    data-shipping="0" 
+				                	    data-tax="0"
+				                	    data-callback="http://localhost:8080/paymentConfirmation.jsp" 
+				                	    data-env="sandbox">
+			                		</script>
+		                		</td>
 		                	</p>
 		                </tr>
 	        <%

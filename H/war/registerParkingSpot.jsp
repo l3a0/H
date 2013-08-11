@@ -42,8 +42,8 @@
 
     <form action="/registerParkingSpot" method="post">
      	<div>Max spots: <input type="text" name="maxSpots" value=""/></div>
-      	<div>Day (0-23): <input type="text" name="day" value=""/></div>
-      	<div>Hour (0-6): <input type="text" name="hour" value=""/></div>
+      	<div>Day (0-6): <input type="text" name="day" value=""/></div>
+      	<div>Hour (0-23): <input type="text" name="hour" value=""/></div>
       	<div>Rate: <input type="text" name="rate" value=""/></div>
       	<input type="hidden" name="occupiedSpots" value="0"/>
       	<input type="hidden" name="username" value="${fn:escapeXml(username)}"/>

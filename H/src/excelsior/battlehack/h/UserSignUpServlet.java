@@ -53,6 +53,6 @@ public class UserSignUpServlet extends HttpServlet {
 		datastore.put(user);
 
 		// redirect to registering parking lot 
-		resp.sendRedirect("/registerParkingLotServlet.jsp?username=" + username);
+		resp.sendRedirect("/registerParkingLot.jsp?username=" + username);
 	}
 }

@@ -35,6 +35,8 @@
 				<h1>Account Info</h1>
 			</div>
 			<div data-role="content">
+				<h4>Looks like it is your first time. Let's build trust. We won't spam and tell.</h4>
+				
 				<a href="#page3" data-role="button">Save</a>
 			</div>
 		</div>
